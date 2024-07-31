@@ -1,0 +1,11 @@
+#cloud-config
+users:
+  - name: ${username}
+    groups: sudo
+    shell: /bin/bash
+    sudo: ["ALL=(ALL) NOPASSWD:ALL"]
+    ssh_authorized_keys:
+      - ${ssh_key}
+runcmd:
+  - 'export PUBLIC_IPV4=$(curl ifconfig.me)'
+  - 'echo Bucket object URL - https://storage.yandexcloud.net/str-bucket/img.png   IP address - $PUBLIC_IPV4 > /var/www/html/index.html'
